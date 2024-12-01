@@ -38,6 +38,12 @@ void ATPSCharacter::BeginPlay()
 
 	UE_LOG(LogTemp, Warning, TEXT("int: %d, float: %f, bool: %d"), myInt, myFloat, myBool);
 
+	FString myString{ TEXT("Hello World!") };
+
+	UE_LOG(LogTemp, Warning, TEXT("FString: %s"), *myString);
+
+	UE_LOG(LogTemp, Warning, TEXT("Name of instance: %s"), *GetName());
+
 	
 }
 
