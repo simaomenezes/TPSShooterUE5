@@ -62,6 +62,30 @@ void ATPSCharacter::BeginPlay()
 	
 }
 
+void ATPSCharacter::MoveForward(float Value)
+{
+	if ((Controller) != nullptr && (Value != 0.0f))
+	{
+		const FRotator Rotation{ Controller->GetControlRotation() };
+		const FRotator YawRotation{ 0.0f, Rotation.Yaw, 0.0f };
+
+		const FVector Direction{ FRotationMatrix{YawRotation}.GetUnitAxis(EAxis::X) };
+		AddMovementInput(Direction, Value);
+	}
+}
+
+void ATPSCharacter::MoveRight(float Value)
+{
+	if ((Controller) != nullptr && (Value != 0.0f))
+	{
+		const FRotator Rotation{ Controller->GetControlRotation() };
+		const FRotator YawRotation{ 0.0f, Rotation.Yaw, 0.0f };
+
+		const FVector Direction{ FRotationMatrix{YawRotation}.GetUnitAxis(EAxis::Y) };
+		AddMovementInput(Direction, Value);
+	}
+}
+
 // Called every frame
 void ATPSCharacter::Tick(float DeltaTime)
 {
@@ -73,6 +97,10 @@ void ATPSCharacter::Tick(float DeltaTime)
 void ATPSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	check(PlayerInputComponent);
+	PlayerInputComponent->BindAxis("MoveForward", this, &ATPSCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ATPSCharacter::MoveRight);
+	
 
 }
 
