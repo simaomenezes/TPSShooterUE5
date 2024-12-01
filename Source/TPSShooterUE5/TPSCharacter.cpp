@@ -4,6 +4,7 @@
 #include "TPSCharacter.h"
 
 
+#include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
@@ -17,6 +18,10 @@ ATPSCharacter::ATPSCharacter()
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->TargetArmLength = 300.0f; // The camera follows at this distance behind the character
 	CameraBoom->bUseAttachParentBound = true; // Rotate the arm based on the controller
+
+	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach camera to end of boom
+	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 	
 
 }
